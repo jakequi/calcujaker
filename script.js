@@ -11,7 +11,13 @@ const calculateFunctions = {
     "+": (a, b) => Number(a) + Number(b),
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
-    "/": (a, b) => a / b,    
+    "/": (a, b) => {
+        if(b == 0) {
+            alert("Lmao nice try")
+            return 0;
+        }
+        return a / b;
+    },    
 }
 
 function operate(operator, a, b) {
