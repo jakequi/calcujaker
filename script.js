@@ -22,7 +22,7 @@ const calculateFunctions = {
     },    
 }
 
-const styleChanges = [".calculator-body", ".calculator-button", ".clear-button", ".display"]
+const styleChanges = [".calculator-body", ".calculator-button", ".clear-button", ".backspace-button", ".display"]
 
 const keyDownEvents = {
     "+": () =>document.querySelector(".plus-button").click(),
@@ -57,7 +57,7 @@ function handleBackspaceButton() {
         return;
     }
     displayValue = displayValue.toString().slice(0, -1);
-    bottomDisplay.textContent = bottomDisplay.textContent.toString().slice(0, -1);
+    bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
     updateFontSize();
 }
 
@@ -127,13 +127,23 @@ function handleKeyPress(event) {
 }
 
 function changeStyle() {
-    let append;
     if (this.value === "retro") {
         for (let i in styleChanges) {
             styledElements = document.querySelectorAll(styleChanges[i]);
             styledElements.forEach((element) => {
                 element.classList.add(styleChanges[i].toString().slice(1) + "-" + "style2")
+                element.classList.remove(styleChanges[i].toString().slice(1) + "-" + "style3")
             })
+        }
+    }
+    else if (this.value === "typewriter") {
+        for (let i in styleChanges) {
+            styledElements = document.querySelectorAll(styleChanges[i]);
+            styledElements.forEach((element) => {
+                element.classList.add(styleChanges[i].toString().slice(1) + "-" + "style3")
+                element.classList.remove(styleChanges[i].toString().slice(1) + "-" + "style2")
+
+            });
         }
     }
     else {
@@ -141,6 +151,7 @@ function changeStyle() {
             styledElements = document.querySelectorAll(styleChanges[i]);
             styledElements.forEach((element) => {
                 element.classList.remove(styleChanges[i].toString().slice(1) + "-" + "style2")
+                element.classList.remove(styleChanges[i].toString().slice(1) + "-" + "style3")
             });
         }
     }
