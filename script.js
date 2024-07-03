@@ -24,40 +24,41 @@ function operate(operator, a, b) {
     return calculateFunctions[operator](a, b);
 }
 
-function updateFontSize() {
-    bottomDisplay.textContent.length > 8 ? bottomDisplay.style.fontSize = "18px" : bottomDisplay.style.fontSize = "32px";
-}
-
-numberButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        displayValue += button.textContent;
-        bottomDisplay.textContent += button.textContent;
-        updateFontSize();
-    });
-});
-
-operatorButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        if (displayValue === "" || /[^\d.]/.test(displayValue.toString().substring(displayValue.length-1))) {
-            return;
-        }
-        if (/[^\d.]/.test(displayValue)) {
-            let splitValues = displayValue.split(" ");
-            displayValue = calculateFunctions[splitValues[1]](splitValues[0], splitValues[2]);
-        }
-        displayValue += ` ${button.value} `;
-        topDisplay.textContent = displayValue;
-        bottomDisplay.textContent = "";
-    });
-});
-
-clearButton.addEventListener("click", () => {
+function handleClearButton() {
     displayValue = "";
     topDisplay.textContent = "";
     bottomDisplay.textContent = "";
-});
+}
 
-equalsButton.addEventListener("click", () => {
+function handleNumberButton() {
+    displayValue += this.textContent;
+    bottomDisplay.textContent += this.textContent;
+    updateFontSize();
+}
+
+function handleOperatorButton() {
+    if (displayValue === "" || /[^\d.]/.test(displayValue.toString().substring(displayValue.length-1))) {
+        return;
+    }
+    if (/[^\d.]/.test(displayValue)) {
+        let splitValues = displayValue.split(" ");
+        displayValue = calculateFunctions[splitValues[1]](splitValues[0], splitValues[2]);
+    }
+    displayValue += ` ${this.value} `;
+    topDisplay.textContent = displayValue;
+    bottomDisplay.textContent = "";
+}
+
+function handleDecimalButton() {
+    if (bottomDisplay.textContent.includes(".")) {
+        return;
+    }
+    displayValue += ".";
+    bottomDisplay.textContent += ".";
+    updateFontSize();
+}
+
+function handleEqualsButton() {
     if (displayValue === "" || /[^\d.]/.test(displayValue.toString().substring(displayValue.length-1))) {
         return;
     }
@@ -66,14 +67,14 @@ equalsButton.addEventListener("click", () => {
     topDisplay.textContent = "";
     bottomDisplay.textContent = displayValue;
     updateFontSize();
-});
+}
 
-decimalButton.addEventListener("click", () => {
-    if (bottomDisplay.textContent.includes(".")) {
-        return;
-    }
-    displayValue += ".";
-    bottomDisplay.textContent += ".";
-    updateFontSize();
-})
+function updateFontSize() {
+    bottomDisplay.textContent.length > 8 ? bottomDisplay.style.fontSize = "18px" : bottomDisplay.style.fontSize = "32px";
+}
 
+numberButtons.forEach((button) => button.addEventListener("click", handleNumberButton));
+operatorButtons.forEach((button) => button.addEventListener("click", handleOperatorButton));
+clearButton.addEventListener("click", handleClearButton);
+equalsButton.addEventListener("click", handleEqualsButton);
+decimalButton.addEventListener("click", handleDecimalButton);
