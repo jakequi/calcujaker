@@ -63,6 +63,11 @@ equalsButton.addEventListener("click", () => {
 });
 
 decimalButton.addEventListener("click", () => {
-    
+    if (bottomDisplay.textContent.includes(".")) {
+        return;
+    }
+    displayValue += ".";
+    bottomDisplay.textContent += ".";
+    updateFontSize();
 })
 
