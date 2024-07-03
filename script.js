@@ -50,8 +50,8 @@ function handleClearButton() {
 }
 
 function handleBackspaceButton() {
-    displayValue = displayValue.slice(0, -1);
-    bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+    displayValue = displayValue.toString().slice(0, -1);
+    bottomDisplay.textContent = bottomDisplay.textContent.toString().slice(0, -1);
     updateFontSize();
 }
 
@@ -63,7 +63,7 @@ function handleNumberButton() {
 }
 
 function handleOperatorButton() {
-    if (displayValue === "" || /[^\d]/.test(displayValue.slice(-1))) {
+    if (displayValue === "" || /[^\d]/.test(displayValue.toString().slice(-1))) {
         return;
     }
     if (/[^\d.]/.test(displayValue)) {
@@ -85,7 +85,7 @@ function handleDecimalButton() {
 }
 
 function handleEqualsButton() {
-    if (displayValue === "" || /[^\d.]/.test(displayValue.slice(-1))) {
+    if ((displayValue === "") || (/[^\d.]/.test(displayValue.toString().slice(-1))) || (!(/[^\d]/.test(displayValue.toString())))) {
         return;
     }
     splitAndCalculate();
@@ -96,7 +96,7 @@ function handleEqualsButton() {
 
 function updateFontSize() {
     bottomDisplay.textContent.length > 8 ? bottomDisplay.style.fontSize = "18px" : bottomDisplay.style.fontSize = "32px";
-}
+}0
 
 function handleKeyPress(event) {
     const key = event.key;
