@@ -158,8 +158,6 @@ function changeStyle() {
 
 }
 
-
-
 numberButtons.forEach((button) => button.addEventListener("click", handleNumberButton));
 operatorButtons.forEach((button) => button.addEventListener("click", handleOperatorButton));
 clearButton.addEventListener("click", handleClearButton);
