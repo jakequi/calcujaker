@@ -6,6 +6,7 @@ const equalsButton = document.querySelector(".equals-button");
 const decimalButton = document.querySelector(".decimal-button");
 const topDisplay = document.querySelector(".display-top-text");
 const bottomDisplay = document.querySelector(".display-bottom-text");
+const styleSelect = document.querySelector(".style-selector");
 let displayValue =  "";
 
 const calculateFunctions = {
@@ -20,6 +21,8 @@ const calculateFunctions = {
         return a / b;
     },    
 }
+
+const styleChanges = [".calculator-body", ".calculator-button", ".clear-button", ".display"]
 
 const keyDownEvents = {
     "+": () =>document.querySelector(".plus-button").click(),
@@ -70,7 +73,8 @@ function handleOperatorButton() {
         bottomDisplay.textContent += "-";
         return;
     }
-    if (displayValue === "" || displayValue === "-" || /[^\d]/.test(displayValue.toString().slice(1,-1))) {
+    if (displayValue === "" || displayValue === "-" || 
+        /[^\d]/.test(displayValue.toString().slice(1,-1))) {
         return;
     }
     if (/[^\d.]/.test(bottomDisplay.textContent.toString().slice(1))) {
@@ -103,7 +107,9 @@ function handleEqualsButton() {
 }
 
 function updateFontSize() {
-    bottomDisplay.textContent.length > 8 ? bottomDisplay.style.fontSize = "18px" : bottomDisplay.style.fontSize = "32px";
+    bottomDisplay.textContent.length > 8 ? 
+    bottomDisplay.style.fontSize = "18px" : 
+    bottomDisplay.style.fontSize = "32px";
 }0
 
 function handleKeyPress(event) {
@@ -120,10 +126,35 @@ function handleKeyPress(event) {
     }
 }
 
+function changeStyle() {
+    console.log(this.value)
+    let append;
+    if (this.value === "retro") {
+        for (let i in styleChanges) {
+            styledElements = document.querySelectorAll(styleChanges[i]);
+            styledElements.forEach((element) => {
+                element.classList.add(styleChanges[i].toString().slice(1) + "-" + "style2")
+            })
+        }
+    }
+    else {
+        for (let i in styleChanges) {
+            styledElements = document.querySelectorAll(styleChanges[i]);
+            styledElements.forEach((element) => {
+                element.classList.remove(styleChanges[i].toString().slice(1) + "-" + "style2")
+            });
+        }
+    }
+
+}
+
+
+
 numberButtons.forEach((button) => button.addEventListener("click", handleNumberButton));
 operatorButtons.forEach((button) => button.addEventListener("click", handleOperatorButton));
 clearButton.addEventListener("click", handleClearButton);
 backspaceButton.addEventListener("click", handleBackspaceButton);
 equalsButton.addEventListener("click", handleEqualsButton);
 decimalButton.addEventListener("click", handleDecimalButton);
+styleSelect.addEventListener("change", changeStyle);
 document.addEventListener("keydown", handleKeyPress);

@@ -7,10 +7,14 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
+select {
+    font-family: "Open Sans", sans-serif;  
+}
+
 .header,
 .footer {
     display: flex;
-    background-color: #003249;
+    background-color: #0C1618;
     color: white;
 }
 
@@ -36,8 +40,12 @@ body {
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    background-color: #CCDBDC;
+    background-color: #EDFCFC;
     width: 100%;
+}
+
+.style-select {
+    padding-bottom: 2vh;
 }
 
 .calculator-body {
@@ -46,37 +54,73 @@ body {
     width: 40vw;
     max-width: 350px;
     min-width: 300px;
-    height: 60vh;
+    height: 55vh;
     border: 3px solid black;
+    border-radius: 5%;
+    background-color: #C5FFFD;
 }
 
-.clear-button, 
-.backspace-button, 
-.number-button, 
-.operator-button, 
-.decimal-button, 
-.equals-button {
-    flex: 1 1 25%;
-    height: calc(100%/6);
-    box-sizing: border-box;
-    border: 0.5px solid black;
+.calculator-body-style2 {
+    height: 40vh;
+    background-color: #292929;
+}
+
+.calculator-body button:hover {
+    background-color: #A39BA8;
+}
+
+.calculator-body-style2 button:hover {
+    background-color: #222222;
+}
+
+.calculator-body button:active {
+    box-shadow: inset 0 0 5px #C5FFFD;
+}
+
+.calculator-button {
+    flex: 1 1 20%;
+    margin: 5px;
+    border-radius: 25px;
     background-color: #9AD1D4;
-    font-size: 26px;
+    font-size: 20px;
     font-family: "Open Sans", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-button-style2 {
+    height: 10%;
+    border-radius: 15px;
+    background-color: #4F4F4F;
+    color: #A7A7A7;
 }
 
 .clear-button {
-    flex: 0 0 75%;
+    flex: 0 0 73%;
+}
+
+.clear-button-style2 {
+    background-color: #A8240A;
 }
 
 .display {
     box-sizing: border-box;
+    margin: 5%;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: calc(100%/6);
     background-color: white;
-    border: 0.5px solid black;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.display-style2 {
+    border-radius: 20px;
+    background-color: #91A649;
+    border: 2px solid black;
 }
 
 .display-top {
