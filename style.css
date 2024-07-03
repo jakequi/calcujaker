@@ -46,25 +46,35 @@ body {
     width: 40vw;
     max-width: 350px;
     min-width: 300px;
-    height: 55vh;
+    height: 60vh;
     border: 3px solid black;
 }
 
-.calculator-body button {
-    height: 20%;
-    width: 25%;
-    background-color: #9AD1D4;
+.clear-button, 
+.backspace-button, 
+.number-button, 
+.operator-button, 
+.decimal-button, 
+.equals-button {
+    flex: 1 1 25%;
+    height: calc(100%/6);
+    box-sizing: border-box;
     border: 0.5px solid black;
+    background-color: #9AD1D4;
     font-size: 26px;
     font-family: "Open Sans", sans-serif;
+}
+
+.clear-button {
+    flex: 0 0 75%;
 }
 
 .display {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 75%;
-    height: 20%;
+    width: 100%;
+    height: calc(100%/6);
     background-color: white;
     border: 0.5px solid black;
 }

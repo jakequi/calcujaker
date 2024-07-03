@@ -1,6 +1,7 @@
 const numberButtons = document.querySelectorAll(".number-button");
 const operatorButtons = document.querySelectorAll(".operator-button");
 const clearButton = document.querySelector(".clear-button");
+const backspaceButton = document.querySelector(".backspace-button");
 const equalsButton = document.querySelector(".equals-button");
 const decimalButton = document.querySelector(".decimal-button");
 const topDisplay = document.querySelector(".display-top-text");
@@ -20,8 +21,26 @@ const calculateFunctions = {
     },    
 }
 
+const keyDownEvents = {
+    "+": () =>document.querySelector(".plus-button").click(),
+    "-": () => document.querySelector(".minus-button").click(),
+    "/": () => document.querySelector(".divide-button").click(),
+    "*": () => document.querySelector(".multiply-button").click(),
+    "x": () => document.querySelector(".multiply-button").click(),
+    "=": () => document.querySelector(".equals-button").click(),
+    "Enter": () => document.querySelector(".equals-button").click(),
+    ".": () => document.querySelector(".decimal-button").click(),
+    "+": () => document.querySelector(".plus-button").click(),
+    "Backspace": () => document.querySelector(".backspace-button").click(),
+}
+
 function operate(operator, a, b) {
     return calculateFunctions[operator](a, b);
+}
+
+function splitAndCalculate() {
+    let splitValues = displayValue.split(" ");
+    displayValue = calculateFunctions[splitValues[1]](splitValues[0], splitValues[2]);
 }
 
 function handleClearButton() {
@@ -30,6 +49,13 @@ function handleClearButton() {
     bottomDisplay.textContent = "";
 }
 
+function handleBackspaceButton() {
+    displayValue = displayValue.slice(0, -1);
+    bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+    updateFontSize();
+}
+
+
 function handleNumberButton() {
     displayValue += this.textContent;
     bottomDisplay.textContent += this.textContent;
@@ -37,17 +63,17 @@ function handleNumberButton() {
 }
 
 function handleOperatorButton() {
-    if (displayValue === "" || /[^\d.]/.test(displayValue.toString().substring(displayValue.length-1))) {
+    if (displayValue === "" || /[^\d]/.test(displayValue.slice(-1))) {
         return;
     }
     if (/[^\d.]/.test(displayValue)) {
-        let splitValues = displayValue.split(" ");
-        displayValue = calculateFunctions[splitValues[1]](splitValues[0], splitValues[2]);
+        splitAndCalculate();
     }
     displayValue += ` ${this.value} `;
     topDisplay.textContent = displayValue;
     bottomDisplay.textContent = "";
 }
+
 
 function handleDecimalButton() {
     if (bottomDisplay.textContent.includes(".")) {
@@ -59,11 +85,10 @@ function handleDecimalButton() {
 }
 
 function handleEqualsButton() {
-    if (displayValue === "" || /[^\d.]/.test(displayValue.toString().substring(displayValue.length-1))) {
+    if (displayValue === "" || /[^\d.]/.test(displayValue.slice(-1))) {
         return;
     }
-    let splitValues = displayValue.split(" ");
-    displayValue = calculateFunctions[splitValues[1]](splitValues[0], splitValues[2]);
+    splitAndCalculate();
     topDisplay.textContent = "";
     bottomDisplay.textContent = displayValue;
     updateFontSize();
@@ -73,8 +98,21 @@ function updateFontSize() {
     bottomDisplay.textContent.length > 8 ? bottomDisplay.style.fontSize = "18px" : bottomDisplay.style.fontSize = "32px";
 }
 
+function handleKeyPress(event) {
+    const key = event.key;
+    if (key in keyDownEvents) {
+        keyDownEvents[key]();
+    }
+    else if (key >= 0 && key <= 9) {
+        displayValue += key;
+        bottomDisplay.textContent += key;
+    }
+}
+
 numberButtons.forEach((button) => button.addEventListener("click", handleNumberButton));
 operatorButtons.forEach((button) => button.addEventListener("click", handleOperatorButton));
 clearButton.addEventListener("click", handleClearButton);
+backspaceButton.addEventListener("click", handleBackspaceButton);
 equalsButton.addEventListener("click", handleEqualsButton);
 decimalButton.addEventListener("click", handleDecimalButton);
+document.addEventListener("keydown", handleKeyPress);
