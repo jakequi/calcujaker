@@ -75,7 +75,7 @@ function handleOperatorButton() {
     }
     if (displayValue === "" || bottomDisplay.textContent === "-" || 
         /[^\d]/.test(bottomDisplay.textContent.slice(1,-1))) {
-        return;
+            return;
     }
     if (/[^\d.]/.test(displayValue.toString().slice(1))) {
         splitAndCalculate();
