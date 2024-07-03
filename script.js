@@ -73,11 +73,11 @@ function handleOperatorButton() {
         bottomDisplay.textContent += "-";
         return;
     }
-    if (displayValue === "" || displayValue === "-" || 
-        /[^\d]/.test(displayValue.toString().slice(1,-1))) {
+    if (displayValue === "" || bottomDisplay.textContent === "-" || 
+        /[^\d]/.test(bottomDisplay.textContent.slice(1,-1))) {
         return;
     }
-    if (/[^\d.]/.test(bottomDisplay.textContent.toString().slice(1))) {
+    if (/[^\d.]/.test(displayValue.toString().slice(1))) {
         splitAndCalculate();
     }
     displayValue += ` ${this.value} `;
@@ -127,7 +127,6 @@ function handleKeyPress(event) {
 }
 
 function changeStyle() {
-    console.log(this.value)
     let append;
     if (this.value === "retro") {
         for (let i in styleChanges) {
