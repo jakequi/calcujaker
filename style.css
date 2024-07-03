@@ -111,6 +111,15 @@ select {
     padding: 10px;
 }
 
+.operator-button-style2 {
+    background-color: orangered;
+    color: black;
+}
+
+.equals-button-style2 {
+    background-color: green;
+}
+
 .clear-button {
     flex: 0 0 73%;
 }
@@ -122,6 +131,11 @@ select {
 .clear-button-style3 {
     flex: 0 0 55%;
     border-radius: 20%;
+}
+
+.backspace-button-style2 {
+    background-color: yellow;
+    color: black
 }
 
 .backspace-button-style3 {

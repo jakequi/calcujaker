@@ -22,7 +22,7 @@ const calculateFunctions = {
     },    
 }
 
-const styleChanges = [".calculator-body", ".calculator-button", ".clear-button", ".backspace-button", ".display"]
+const styleChanges = [".calculator-body", ".calculator-button", ".clear-button", ".backspace-button", ".operator-button", ".equals-button", ".display"]
 
 const keyDownEvents = {
     "+": () =>document.querySelector(".plus-button").click(),
