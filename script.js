@@ -74,10 +74,12 @@ function handleOperatorButton() {
         return;
     }
     if (displayValue === "" || bottomDisplay.textContent === "-" || 
-        /[^\d]/.test(bottomDisplay.textContent.slice(1,-1))) {
+        /[^\d.]/.test(bottomDisplay.textContent.slice(1,-1)) || // check if any non-numbers or periods are found between first and last character
+        ((/.(.)([*\/+-]).$/.test(displayValue))) && bottomDisplay.textContent === "" || // checks if last character of displayValue is *, /, or + and if bottom is empty
+        bottomDisplay.textContent.slice(-1) === ".") { 
             return;
     }
-    if (/[^\d.]/.test(displayValue.toString().slice(1))) {
+    if (/[^\d.]/.test(displayValue.toString().slice(1))) { // check if any non-numbers or periods starting from second character
         splitAndCalculate();
     }
     displayValue += ` ${this.value} `;
@@ -103,6 +105,7 @@ function handleEqualsButton() {
     splitAndCalculate();
     topDisplay.textContent = "";
     bottomDisplay.textContent = displayValue;
+    equalsLastPressed =
     updateFontSize();
 }
 
